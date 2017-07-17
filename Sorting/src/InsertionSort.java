@@ -7,11 +7,12 @@ public class InsertionSort
     {
         System.out.println("Insertion sort");
         int[] array = new int[] {10,14,7,4,19,16};
-        InsertionSort(array, 6);
-        Print(array);
+        InsertionSort(array, array.length);
+        Utils.print(array);
     }
 
-    public static void InsertionSort(int[] array, int n) {
+    public static void InsertionSort(int[] array, int n)
+    {
         if (n <= 1) {
             return;
         }
@@ -33,15 +34,6 @@ public class InsertionSort
             }
             array[j + 1] = current;
         }
-    }
-
-    public static void Print(int[] array)
-    {
-        for (int i = 0; i < array.length; i++)
-        {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
     }
 
 }
