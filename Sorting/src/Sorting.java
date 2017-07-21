@@ -1,14 +1,18 @@
+import java.util.Random;
+
 /**
  * Created by prchand on 7/14/2017.
  */
 public class Sorting
 {
+    public static Random random = new Random();
+
     public static void main(String[] args)
     {
-        System.out.println("Insertion sort");
+        System.out.println("Sorting");
         int[] array = new int[] {10,14,7,4,19,16,12,19,100,20,3};
         //InsertionSort(array, array.length);
-        QuickSort(array);
+        QuickSort(array, false);
         Utils.print(array);
         System.out.println(Utils.issorted(array));
     }
@@ -98,7 +102,7 @@ public class Sorting
         }
     }
 
-    public static void QuickSort(int[] array)
+    public static void QuickSort(int[] array, boolean randomPivot)
     {
         if(array == null)
         {
@@ -110,27 +114,35 @@ public class Sorting
             return;
         }
 
-        QuickSort(array, 0, array.length - 1);
+        QuickSort(array, 0, array.length - 1, randomPivot);
     }
 
-    private static void QuickSort(int[] array, int start, int end)
+    private static void QuickSort(int[] array, int start, int end, boolean randomPivot)
     {
         if(start >= end)
         {
             return;
         }
 
-        int pivot_position = QuickSortBalance(array, start, end);
+        int pivot_position = QuickSortBalance(array, start, end, randomPivot);
 
-        Utils.print(array);
-
-        QuickSort(array, start, pivot_position - 1);
-        QuickSort(array, pivot_position + 1, end);
+        QuickSort(array, start, pivot_position - 1, randomPivot);
+        QuickSort(array, pivot_position + 1, end, randomPivot);
     }
 
-    private static int QuickSortBalance(int[] array, int start, int end)
+    private static int QuickSortBalance(int[] array, int start, int end, boolean randomPivot)
     {
+        if(randomPivot)
+        {
+            int randomInt = random.nextInt(end - start);
+            int pivotPosition = randomInt + start;
+            int temp = array[end];
+            array[end] = array[pivotPosition];
+            array[pivotPosition] = temp;
+        }
+
         int pivot = array[end];
+
         /////////////////////////////////////////////
         // x1 x2 x3 x4 x5 x6 x7 x8 x9 x10
         // ----------i--------j--------pivot
