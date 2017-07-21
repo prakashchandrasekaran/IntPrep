@@ -8,7 +8,7 @@ public class Sorting
         System.out.println("Insertion sort");
         int[] array = new int[] {10,14,7,4,19,16,12,19,100,20,3};
         //InsertionSort(array, array.length);
-        SelectionSort(array);
+        QuickSort(array);
         Utils.print(array);
         System.out.println(Utils.issorted(array));
     }
@@ -96,6 +96,70 @@ public class Sorting
 
             //Utils.print(array);
         }
+    }
+
+    public static void QuickSort(int[] array)
+    {
+        if(array == null)
+        {
+            return;
+        }
+
+        if(array.length <= 1)
+        {
+            return;
+        }
+
+        QuickSort(array, 0, array.length - 1);
+    }
+
+    private static void QuickSort(int[] array, int start, int end)
+    {
+        if(start >= end)
+        {
+            return;
+        }
+
+        int pivot_position = QuickSortBalance(array, start, end);
+
+        Utils.print(array);
+
+        QuickSort(array, start, pivot_position - 1);
+        QuickSort(array, pivot_position + 1, end);
+    }
+
+    private static int QuickSortBalance(int[] array, int start, int end)
+    {
+        int pivot = array[end];
+        /////////////////////////////////////////////
+        // x1 x2 x3 x4 x5 x6 x7 x8 x9 x10
+        // ----------i--------j--------pivot
+        // 0 to i-1 items are lesser than pivot
+        // i to j-1 is not processed
+        // j to end-1 is greater than pivot
+        // end is pivot
+        //////////////////////////////////////////////
+        int i = start;
+        int j = end;
+
+        while(i < j) {
+            if (array[i] > pivot) {
+                int temp = array[j - 1];
+                array[j - 1] = array[i];
+                array[i] = temp;
+                j--;
+            } else {
+                i++;
+            }
+        }
+
+        // swapping pivot
+        if(j != end) {
+            array[end] = array[j];
+            array[j] = pivot;
+        }
+
+        return j;
     }
 
 }
