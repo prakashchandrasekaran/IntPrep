@@ -16,11 +16,6 @@ You must do this in O(N) without using division
  */
 public class ArrayWithMultiplication
 {
-    public static void Main(String args[])
-    {
-
-    }
-
     public int[] GetResult(int[] array)
     {
         if(array == null)
@@ -36,6 +31,7 @@ public class ArrayWithMultiplication
         int[] result = new int[array.length];
 
         int start = 1;
+        //{a,b,c} ==> [1,a,ab]
         for(int i=0;i<array.length;i++)
         {
             result[i] = start;
@@ -43,6 +39,7 @@ public class ArrayWithMultiplication
         }
 
         start = 1;
+        // {1, a, ab} ==> {1*bc,a*c, ab*1}
         for(int i=array.length-1;i>=0;i--)
         {
             result[i] *= start;
